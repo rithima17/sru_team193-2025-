@@ -1,0 +1,79 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5fff5;
+  }
+  
+  .navbar {
+    background-color: #2e8b57;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .qa-section {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  .qa-section h2 {
+    text-align: center;
+    color: #2e8b57;
+  }
+  
+  form input, form select, form textarea, form button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  form button {
+    background-color: #2e8b57;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  form button:hover {
+    background-color: #246d45;
+  }
+  
+  .question-box {
+    background: #e8ffe8;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    border-left: 5px solid #2e8b57;
+    border-radius: 6px;
+  }
+  
+  .answers {
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  

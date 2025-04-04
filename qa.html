@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expert Q&A | AgroConnect</title>
+  <link rel="stylesheet" href="qa-style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AgroConnect</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Buy</a></li>
+      <li><a href="sell.html">Sell</a></li>
+      <li><a href="qa.html" class="active">Q&A</a></li>
+    </ul>
+  </nav>
+
+  <section class="qa-section">
+    <h2>🧠 Ask Experts</h2>
+    <form id="questionForm">
+      <input type="text" id="questionTitle" placeholder="Type your question here..." required />
+      <select id="questionTag">
+        <option value="Crop">Crop</option>
+        <option value="Soil">Soil</option>
+        <option value="Pests">Pests</option>
+        <option value="Weather">Weather</option>
+        <option value="Tools">Tools</option>
+      </select>
+      <textarea id="questionDetails" placeholder="More details about your issue..." rows="4" required></textarea>
+      <button type="submit">Ask</button>
+    </form>
+
+    <div id="questionsList"></div>
+  </section>
+
+  <script>
+    const form = document.getElementById('questionForm');
+    const questionList = document.getElementById('questionsList');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const question = {
+        title: document.getElementById('questionTitle').value,
+        tag: document.getElementById('questionTag').value,
+        details: document.getElementById('questionDetails').value,
+        answers: []
+      };
+
+      const stored = JSON.parse(localStorage.getItem('qaForum')) || [];
+      stored.push(question);
+      localStorage.setItem('qaForum', JSON.stringify(stored));
+
+      form.reset();
+      displayQuestions();
+    });
+
+    function displayQuestions() {
+      questionList.innerHTML = '';
+      const questions = JSON.parse(localStorage.getItem('qaForum')) || [];
+      questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.classList.add('question-box');
+        div.innerHTML = `
+          <h3>${q.title}</h3>
+          <p><strong>Category:</strong> ${q.tag}</p>
+          <p>${q.details}</p>
+          <button onclick="answerPrompt(${index})">Answer</button>
+          <div class="answers">
+            ${q.answers.map(a => `<p>💬 ${a}</p>`).join('')}
+          </div>
+        `;
+        questionList.appendChild(div);
+      });
+    }
+
+    function answerPrompt(index) {
+      const answer = prompt("Your Answer:");
+      if (answer) {
+        const forum = JSON.parse(localStorage.getItem('qaForum'));
+        forum[index].answers.push(answer);
+        localStorage.setItem('qaForum', JSON.stringify(forum));
+        displayQuestions();
+      }
+    }
+
+    // Initial load
+    displayQuestions();
+  </script>
+</body>
+</html>

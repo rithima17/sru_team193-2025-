@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sell Crops | AgroConnect</title>
+    <link rel="stylesheet" href="sell-style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">AgroConnect</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Buy</a></li>
+            <li><a href="sell.html" class="active">Sell</a></li>
+            <li><a href="cart.html">Cart <span id="cartCount">0</span></a></li>
+        </ul>
+    </nav>
+
+    <section class="sell-form-section">
+        <h2>Sell Your Crops</h2>
+        <form id="cropForm">
+            <input type="text" placeholder="Crop Name" required id="cropName" />
+            <input type="number" placeholder="Quantity (kg)" required id="cropQty" />
+            <input type="number" placeholder="Base Price (₹/kg)" required id="cropPrice" />
+            <button type="submit">List Crop</button>
+        </form>
+    </section>
+
+    <script>
+        const cropForm = document.getElementById("cropForm");
+
+        cropForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const crop = {
+                name: document.getElementById("cropName").value,
+                quantity: document.getElementById("cropQty").value,
+                basePrice: document.getElementById("cropPrice").value,
+                bids: []
+            };
+
+            const cropListings = JSON.parse(localStorage.getItem("cropListings")) || [];
+            cropListings.push(crop);
+            localStorage.setItem("cropListings", JSON.stringify(cropListings));
+            alert("Crop listed successfully!");
+            window.location.href = "bidding.html";
+        });
+    </script>
+</body>
+
+</html>

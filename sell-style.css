@@ -1,0 +1,72 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar {
+    background-color: #228B22;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .sell-form-section, .bidding-section {
+    max-width: 500px;
+    margin: 3rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  .sell-form-section h2, .bidding-section h2 {
+    text-align: center;
+    color: #006400;
+    margin-bottom: 1.5rem;
+  }
+  
+  form input, form button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  form button {
+    background-color: #228B22;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
+  }
+  
+  form button:hover {
+    background-color: #006400;
+  }
+  
+  .crop-item {
+    background: #e6ffe6;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #b2ffb2;
+    border-radius: 10px;
+  }
+  

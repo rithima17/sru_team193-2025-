@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Storage | AgroConnect</title>
+  <link rel="stylesheet" href="storage-style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AgroConnect</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Buy</a></li>
+      <li><a href="sell.html">Sell</a></li>
+      <li><a href="qa.html">Q&A</a></li>
+      <li><a href="storage.html" class="active">Storage</a></li>
+    </ul>
+  </nav>
+
+  <section class="storage-section">
+    <h2>🏢 Available Crop Storages (Godowns)</h2>
+
+    <div class="godown-container" id="godownContainer">
+      <!-- Dynamic godown cards inserted by JS -->
+    </div>
+  </section>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Book Storage Slot</h3>
+      <form id="bookingForm">
+        <input type="text" id="farmerName" placeholder="Your Name" required />
+        <input type="text" id="cropType" placeholder="Crop Type" required />
+        <input type="date" id="startDate" required />
+        <input type="date" id="endDate" required />
+        <button type="submit">Confirm Booking</button>
+      </form>
+      <p id="confirmationMsg"></p>
+    </div>
+  </div>
+
+  <script>
+    const godowns = [
+      { name: "GreenField Storage", location: "Hyderabad", capacity: "100 tons", contact: "123-456-7890" },
+      { name: "AgriSafe Godown", location: "Warangal", capacity: "75 tons", contact: "987-654-3210" },
+      { name: "Harvest Vault", location: "Vijayawada", capacity: "120 tons", contact: "756-341-2345" },
+      { name: "CropCare Depot", location: "Guntur", capacity: "95 tons", contact: "888-222-3333" },
+      { name: "GrainSecure Storage", location: "Karimnagar", capacity: "110 tons", contact: "777-111-9999" },
+    ];
+
+    const godownContainer = document.getElementById('godownContainer');
+    const modal = document.getElementById('bookingModal');
+    const bookingForm = document.getElementById('bookingForm');
+    const confirmationMsg = document.getElementById('confirmationMsg');
+
+    function displayGodowns() {
+      godowns.forEach((g, index) => {
+        const card = document.createElement('div');
+        card.classList.add('godown-card');
+        card.innerHTML = `
+          <h3>${g.name}</h3>
+          <p><strong>Location:</strong> ${g.location}</p>
+          <p><strong>Capacity:</strong> ${g.capacity}</p>
+          <p><strong>Contact:</strong> ${g.contact}</p>
+          <button onclick="openModal('${g.name}')">Book Now</button>
+        `;
+        godownContainer.appendChild(card);
+      });
+    }
+
+    function openModal(godownName) {
+      modal.style.display = "block";
+      bookingForm.setAttribute("data-godown", godownName);
+      confirmationMsg.innerText = "";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+      bookingForm.reset();
+    }
+
+    bookingForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const godown = bookingForm.getAttribute("data-godown");
+      const name = document.getElementById("farmerName").value;
+      const crop = document.getElementById("cropType").value;
+      const start = document.getElementById("startDate").value;
+      const end = document.getElementById("endDate").value;
+
+      confirmationMsg.innerHTML = `✅ <strong>${name}</strong>, your booking at <strong>${godown}</strong> from <strong>${start}</strong> to <strong>${end}</strong> for <strong>${crop}</strong> has been confirmed.`;
+      bookingForm.reset();
+    });
+
+    displayGodowns();
+  </script>
+</body>
+</html>

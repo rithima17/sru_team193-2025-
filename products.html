@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy Essentials | AgroConnect</title>
+    <link rel="stylesheet" href="products.css" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">AgroConnect</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html" class="active">Buy Essentials</a></li>
+            <li><a href="index.html">About</a></li>
+            <li id="profileLink"><a href="login.html">Login</a></li>
+            <li><a href="cart.html">🛒 Cart</a></li>
+
+        </ul>
+    </header>
+
+    <section class="products-section">
+        <h2>Explore Our Agro Essentials</h2>
+        <div class="product-grid">
+            <div class="filter-bar">
+                <label for="category">Filter by Category:</label>
+                <select id="category" onchange="filterProducts()">
+                    <option value="all">All</option>
+                    <option value="seeds">Seeds</option>
+                    <option value="fertilizers">Fertilizers</option>
+                    <option value="pesticides">Pesticides</option>
+                    <option value="tools">Tools</option>
+                </select>
+            </div>
+
+
+            <div class="product-card seeds">
+                <div class="product-card">
+                    <img src="image/seed1.jpg" alt="Wheat Seeds">
+                    <h3>Wheat Seeds</h3>
+                    <p>₹180 / kg</p>
+                    <button onclick="addToCart('Wheat Seeds', 180)">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="image/seed2.jpg" alt="Rice Seeds">
+                    <h3>Rice Seeds</h3>
+                    <p>₹200 / kg</p>
+                    <button onclick="addToCart('Rice Seeds', 200)">Add to Cart</button>
+                </div>
+
+            </div>
+
+            <div class="product-card fertilizers">
+                <!-- Fertilizers -->
+                <div class="product-card">
+                    <img src="image/fertilizer1.jpg" alt="Organic Fertilizer">
+                    <h3>Organic Fertilizer</h3>
+                    <p>₹250 / 5kg</p>
+                    <button onclick="addToCart('Organic Fertilizer', 250)">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="image/fertilizer2.jpg" alt="Urea Fertilizer">
+                    <h3>Urea Fertilizer</h3>
+                    <p>₹320 / 10kg</p>
+                    <button onclick="addToCart('Urea Fertilizer', 320)">Add to Cart</button>
+                </div>
+            </div>
+
+
+            <div class="product-card pesticides">
+                <div class="product-card">
+                    <img src="image/pesticide1.jpg" alt="Neem Pesticide">
+                    <h3>Neem Pesticide</h3>
+                    <p>₹150 / 500ml</p>
+                    <button onclick="addToCart('Neem Pesticide', 150)">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="image/pesticide2.jpg" alt="Chemical Pesticide">
+                    <h3>Chemical Pesticide</h3>
+                    <p>₹180 / 500ml</p>
+                    <button onclick="addToCart('Chemical Pesticide', 180)">Add to Cart</button>
+                </div>
+
+            </div>
+
+
+            <div class="product-card tools">
+                <!-- Tools -->
+                <div class="product-card">
+                    <img src="image/tool1.jpg" alt="Hand Shovel">
+                    <h3>Hand Shovel</h3>
+                    <p>₹99</p>
+                    <button onclick="addToCart('Hand Shovel', 99)">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="image/tool2.jpg" alt="Rake">
+                    <h3>Garden Rake</h3>
+                    <p>₹130</p>
+                    <button onclick="addToCart('Garden Rake', 130)">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="image/tool3.jpg" alt="Watering Can">
+                    <h3>Watering Can</h3>
+                    <p>₹210</p>
+                    <button onclick="addToCart('Watering Can', 210)">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <p>© 2025 AgroConnect. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Handle showing profile if logged in
+        const user = JSON.parse(localStorage.getItem("agroUser"));
+        if (user) {
+            document.getElementById("profileLink").innerHTML = `<a href="profile.html">Hi, ${user.name}</a>`;
+        }
+
+        function filterProducts() {
+            const category = document.getElementById("category").value;
+            const cards = document.querySelectorAll(".product-card");
+
+            cards.forEach(card => {
+                if (category === "all" || card.classList.contains(category)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("agroCart")) || [];
+            cart.push({
+                name,
+                price
+            });
+            localStorage.setItem("agroCart", JSON.stringify(cart));
+            alert(name + " added to cart!");
+        }
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("agroCart")) || [];
+
+            // Check if already in cart
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem("agroCart", JSON.stringify(cart));
+            alert(`${name} added to cart!`);
+        }
+    </script>
+
+</body>
+
+</html>

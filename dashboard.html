@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | AgroConnect</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">AgroConnect</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+            <li>
+                <div class="profile-icon" title="Profile">
+                    👤
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="dashboard-content">
+        <h1 id="welcome-text">Welcome, User</h1>
+        <p>This is your dashboard. More features coming soon!</p>
+    </section>
+
+    <script>
+        // Load user from localStorage
+        const user = JSON.parse(localStorage.getItem("agroUser"));
+        const welcomeText = document.getElementById("welcome-text");
+
+        if (user && user.name) {
+            welcomeText.textContent = `Welcome, ${user.name}`;
+        } else {
+            welcomeText.textContent = "Welcome to AgroConnect";
+        }
+
+        // Logout handler
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("agroUser");
+            window.location.href = "index.html"; // or login.html
+        });
+    </script>
+</body>
+
+</html>

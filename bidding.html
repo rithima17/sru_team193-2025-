@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Bidding | AgroConnect</title>
+    <link rel="stylesheet" href="sell-style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">AgroConnect</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Buy</a></li>
+            <li><a href="sell.html">Sell</a></li>
+        </ul>
+    </nav>
+
+    <section class="bidding-section">
+        <h2>Live Bidding</h2>
+        <div id="cropList"></div>
+    </section>
+
+    <script>
+        const cropList = document.getElementById("cropList");
+        const listings = JSON.parse(localStorage.getItem("cropListings")) || [];
+
+        listings.forEach((crop, index) => {
+            const container = document.createElement("div");
+            container.classList.add("crop-item");
+
+            const highestBid = crop.bids.length > 0 ?
+                Math.max(...crop.bids.map(b => b.amount)) :
+                crop.basePrice;
+
+            container.innerHTML = `
+        <h3>${crop.name}</h3>
+        <p>Quantity: ${crop.quantity} kg</p>
+        <p>Base Price: ₹${crop.basePrice}</p>
+        <p><strong>Current Highest Bid: ₹${highestBid}</strong></p>
+        <input type="number" id="bid-${index}" placeholder="Your Bid (₹)" />
+        <button onclick="placeBid(${index})">Place Bid</button>
+      `;
+
+            cropList.appendChild(container);
+        });
+
+        function placeBid(index) {
+            const bidInput = document.getElementById(`bid-${index}`);
+            const bidAmount = parseInt(bidInput.value);
+            if (!bidAmount) return alert("Enter a valid amount");
+
+            const crops = JSON.parse(localStorage.getItem("cropListings")) || [];
+            crops[index].bids.push({
+                amount: bidAmount
+            });
+            localStorage.setItem("cropListings", JSON.stringify(crops));
+            alert("Bid placed successfully!");
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>
